@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	
+		<title>Problem J1: Cupcake Party</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			.formfield{margin-bottom:10px;}
+		</style>
+	</head>
+	<body>
+	<p>Problem J1: Cupcake Party <a href="https://cemc.uwaterloo.ca/contests/computing/2022/ccc/juniorEF.pdf"></a></p>
+	<p>A regular box of cupcakes holds 8 cupcakes, while a small box holds 3 cupcakes. There are
+		28 students in a class and a total of at least 28 cupcakes. Your job is to determine how many
+		cupcakes will be left over if each student gets one cupcake.
+		</p>
+	<div id="app">
+		<div class="formfield">
+			<label>Regular size Boxes: <label> <input v-model="box_qty_reg">
+		</div>
+		<div class="formfield">
+			<label>Small size Boxes: <label> <input v-model="box_qty_small">
+		</div>
+		<div id="result">
+			<div><label>show diagnostics:</label><input type="checkbox" v-model="cupcake_diagnostics"></div>
+			<div v-if="cupcake_diagnostics">Cupcake Total: {{cupcake_total}}</div>
+			<div v-if="cupcake_diagnostics">Any Cupcakes Left?: {{is_left}}</div>
+			<span v-if="is_left">{{cupcake_total}} cupcakes are Left!</span>
+			<span v-else>0 cupcakes are left over!</span>
+		</div>
+	</div>
+	
+	<script>
+	var app = new Vue({
+		el: '#app',
+		data:{
+			cupcake_diagnostics:false,
+			box_qty_small:0,
+			box_qty_reg:0
+		},
+		computed:{
+			cupcake_total:function(){
+				return ((this.box_qty_reg * 8) + 
+				(this.box_qty_small * 3)) - 28;	
+			},
+			is_left:function(){
+				
+				return (this.cupcake_total>=0);	
+			}
+		}
+	});
+	
+	</script>
+	<!--
+		v-model will allow you to quickly bind form elements to the data property.
+		Make sure to set a default value!
+		The Computed property can be used like data, except for values that are calculated from data properties.
+		In this example 'treat_total' is computed from data properties, and 'is_happy' is computed from 'treat_total'.
+		
+		ASYNCHRONOUS LEARNING EXERCISE : J1
+		- Find any J1 problem
+		- Imagine an interface that allows the user to enter data on the webpage
+		- Build using v-model and computed properties!
+	
+	-->
+	</body>
+</html>
